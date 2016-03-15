@@ -20,7 +20,7 @@ class DefaultController extends Controller
         $this->checkweixin() or die("请通过微信公众号访问");
 
         //第一次验证需要ECHO
-        if ( $echostr = Yii::$app->request->get('echostr') !== '' )
+        if ( ($echostr = Yii::$app->request->get('echostr')) !== '' )
             echo $echostr;exit;
 
         $this->execute();
