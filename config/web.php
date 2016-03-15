@@ -39,6 +39,11 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
     ],
+    'modules' => [
+        'wx' => [
+            'class' => 'app\modules\wx\message',
+        ]
+    ],
     'params' => $params,
 ];
 
