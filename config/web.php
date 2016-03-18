@@ -5,6 +5,7 @@ $params = require(__DIR__ . '/params.php');
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'defaultRoute' => 'index', //修改默认路由为index
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
@@ -40,9 +41,6 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
     ],
     'modules' => [
-        'wx' => [
-            'class' => 'app\modules\wx\message',
-        ]
     ],
     'params' => $params,
 ];
