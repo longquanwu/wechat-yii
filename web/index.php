@@ -1,5 +1,4 @@
 <?php
-
 header('Cache-Control:no-cache,must-revalidate');
 header('Pragma:no-cache');
 header('content-type:text/html;charset=utf-8');

@@ -19,11 +19,23 @@ class IndexAction extends actions\ActionBase{
         $timestamp = $request->get("timestamp");
         $nonce     = $request->get("nonce");
         $token = \yii::$app->params['wxtoken'];
+
+        //验证消息来源
         if (!$this->_checkSignature($signature, $timestamp, $nonce, $token)){
             return '请通过微信端访问';
         }
+
+        //如果是第一次接入，需要返回echostr
         if ( $request->get('echostr') ){
             echo $request->get('echostr');exit;
+        }
+
+        //$postStr = isset($GLOBALS["HTTP_RAW_POST_DATA"]) ? $GLOBALS["HTTP_RAW_POST_DATA"] : file_get_contents('php://input');
+        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+
+        file_put_contents(__DIR__."/../../runtime/wlq.log", "请求的数据为：".$postStr, FILE_APPEND);
+        if (!empty($postStr)){
+            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
         }
 
     }
@@ -42,4 +54,4 @@ class IndexAction extends actions\ActionBase{
         }
     }
 
-}
+}//end class

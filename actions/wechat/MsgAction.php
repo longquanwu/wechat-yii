@@ -10,6 +10,8 @@ namespace app\actions\wechat;
 use app\actions;
 
 class MsgAction extends actions\ActionBase{
+
     public function invoke(){
+
     }
 }
