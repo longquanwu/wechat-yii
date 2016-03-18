@@ -13,6 +13,8 @@ use yii\web\Controller;
 
 class WechatController extends Controller{
 
+    public $enableCsrfValidation = false;
+
     public function actions(){
         return [
             'index' => 'app\actions\wechat\IndexAction',
