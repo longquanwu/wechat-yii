@@ -22,7 +22,7 @@ class IndexAction extends actions\ActionBase{
         if (!$this->_checkSignature($signature, $timestamp, $nonce, $token)){
             return '请通过微信端访问';
         }
-        if ( empty($request->get('echostr')) ){
+        if ( $request->get('echostr') ){
             echo $request->get('echostr');exit;
         }
 
