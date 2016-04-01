@@ -1,6 +1,6 @@
 <?php
 /**
- * 微信认证
+ * 微信认证,操作分流
  * IndexAction.php
  * User: wlq
  * CreateTime: 16-3-18 上午11:36
@@ -14,11 +14,11 @@ class IndexAction extends actions\ActionBase{
 
     public function invoke(){
 
-        $request = \yii::$app->request;
+        $request   = \yii::$app->request;
         $signature = $request->get("signature");
         $timestamp = $request->get("timestamp");
         $nonce     = $request->get("nonce");
-        $token = \yii::$app->params['wxtoken'];
+        $token     = \yii::$app->params['wxtoken'];
 
         //验证消息来源
         if (!$this->_checkSignature($signature, $timestamp, $nonce, $token)){
@@ -33,7 +33,8 @@ class IndexAction extends actions\ActionBase{
         //$postStr = isset($GLOBALS["HTTP_RAW_POST_DATA"]) ? $GLOBALS["HTTP_RAW_POST_DATA"] : file_get_contents('php://input');
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 
-        file_put_contents(__DIR__."/../../runtime/wlq.log", "\n请求的数据为：".$postStr, FILE_APPEND);
+        //简单的日志测试
+        file_put_contents(__DIR__."/../../runtime/wlq.log", "\n".date("Y-m-d H:i:s")." 请求的数据为：".$postStr, FILE_APPEND);
         if (!empty($postStr)){
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             switch($postObj->MsgType){
@@ -56,6 +57,14 @@ class IndexAction extends actions\ActionBase{
 
     }
 
+    /**
+     * 微信接入验证Signature
+     * @param $signature
+     * @param $timestamp
+     * @param $nonce
+     * @param $token
+     * @return bool
+     */
     private function _checkSignature($signature, $timestamp, $nonce, $token){
 
         $tmpArr = [ $token, $timestamp, $nonce ];

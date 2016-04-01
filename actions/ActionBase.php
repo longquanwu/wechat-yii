@@ -24,7 +24,6 @@ abstract class ActionBase extends Action{
 
     }
 
-
     //处理返回结果
     private function _display( $res ){
         echo $res;
