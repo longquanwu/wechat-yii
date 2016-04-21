@@ -12,8 +12,17 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '2s_8dwuuGgIKMjzDCeRMWISlPe5V80wi',
         ],
+//        'cache' => [
+//            'class' => 'yii\caching\FileCache',
+//        ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'app\compoents\redis\CRedisCacheComponent',
+            'options' => [
+                'host' => '127.0.0.1',
+                'port' => '6379',
+                'timeout' => '0',
+                'prefix' => 'wechat',
+            ]
         ],
         'user' => [
             'identityClass' => 'app\models\User',
